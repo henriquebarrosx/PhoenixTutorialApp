@@ -84,14 +84,17 @@ RUN chown nobody /app
 # set runner ENV
 ENV MIX_ENV="prod"
 
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+COPY .env .env
+
+# Make entrypoint script executable
+RUN chmod +x /entrypoint.sh
+
 # Only copy the final release from the build stage
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/tutorial_app ./
 
-USER nobody
+# Set the entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
 
-# If using an environment that doesn't automatically reap zombie processes, it is
-# advised to add an init process such as tini via `apt-get install`
-# above and adding an entrypoint. See https://github.com/krallin/tini for details
-# ENTRYPOINT ["/tini", "--"]
-
-CMD ["/app/bin/server"]
