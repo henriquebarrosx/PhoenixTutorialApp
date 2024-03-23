@@ -1,9 +1,40 @@
 version: "3"
 
 services:
-  postgres:
+  db:
     image: postgres
     restart: always
     shm_size: 128mb
+    ports:
+      - "5432:5432"
     environment:
+      POSTGRES_DB: tutorial_app_prod
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"  # Adjust the port if necessary
+    environment:
+      MIX_ENV: "prod"  # Set the environment as per your requirement
+      SECRET_KEY_BASE: "gTwsN/AVbXMXwKggvfvN99qLl4HyIyiOlikVZHfFlNA9JAiRDVF2mHRKU0jZyt3j"
+      DATABASE_URL: "ecto://postgres:postgres@db/tutorial_app_prod" 
+      PORT: "4001"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
