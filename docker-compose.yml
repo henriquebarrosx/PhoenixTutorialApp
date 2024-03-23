@@ -8,7 +8,6 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: tutorial_app_prod
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
@@ -21,12 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4001:4001"  # Adjust the port if necessary
-    environment:
-      MIX_ENV: "prod"  # Set the environment as per your requirement
-      SECRET_KEY_BASE: "gTwsN/AVbXMXwKggvfvN99qLl4HyIyiOlikVZHfFlNA9JAiRDVF2mHRKU0jZyt3j"
-      DATABASE_URL: "ecto://postgres:postgres@db/tutorial_app_prod" 
-      PORT: "4001"
+      - "4001:4001"
     depends_on:
       - db
     networks:
