@@ -17,7 +17,9 @@ defmodule TutorialAppWeb.Router do
   scope "/", TutorialAppWeb do
     pipe_through :browser
 
-    get "/", PageController, :goodbye
+    get "/", PageController, :home
+    get "/greet", PageController, :greet
+    get "/goodbye", PageController, :goodbye
   end
 
   # Other scopes may use custom stacks.
