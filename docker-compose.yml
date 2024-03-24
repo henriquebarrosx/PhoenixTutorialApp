@@ -23,6 +23,13 @@ services:
     networks:
       - app-network
 
+  nginx:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
 volumes:
   pgdata:
 
