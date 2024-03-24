@@ -89,6 +89,14 @@ COPY entrypoint.sh /entrypoint.sh
 
 COPY .env .env
 
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx
+
+# Copy Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE ${PORT:-4000} 80
+
 # Make entrypoint script executable
 RUN chmod +x /entrypoint.sh
 
