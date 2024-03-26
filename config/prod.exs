@@ -1,8 +1,8 @@
 import Config
 
 config :hello_phoenix, HelloPhoenix.Endpoint,
-  http: [port: 8080],
-  url: [host: "217.196.61.125", port: 80],
+  http: [port: System.get_env("PORT") || 4001],
+  url: [host: System.get_env("HOST"), port: System.get_env("PORT")],
   cache_static_manifest: "priv/static/manifest.json"
 
 # Note we also include the path to a cache manifest

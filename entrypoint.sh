@@ -8,8 +8,9 @@ source .env
 # sed -e "s/\${PORT}/$PORT/g" -e "s/\${DOMAIN}/$DOMAIN/g" /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 # Start Nginx
+echo "Starting NGINX..."
 exec nginx -g 'daemon off;'
 
-echo "Running server..."
+echo "Starting server..."
 /app/bin/server
 
