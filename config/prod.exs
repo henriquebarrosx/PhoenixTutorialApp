@@ -1,8 +1,10 @@
 import Config
 
-config :hello_phoenix, HelloPhoenix.Endpoint,
-  http: [port: System.get_env("PORT") || 4001],
-  url: [host: System.get_env("HOST"), port: System.get_env("PORT")],
+host = System.get_env("PHX_HOST") || "localhost"
+
+config :tutorial_app, TutorialAppWeb.Endpoint,
+  http: [ip: {0, 0, 0, 0}, port: 4000],
+  url: [host: host, port: 80, scheme: "https"],
   cache_static_manifest: "priv/static/manifest.json"
 
 # Note we also include the path to a cache manifest
